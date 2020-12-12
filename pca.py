@@ -59,7 +59,8 @@ with picamera.PiCamera() as camera:    # load picamera -> camera
                 gray,
                 scaleFactor=1.1,
                 minNeighbors=5,
-                minSize=(rows//3, cols//3),
+                minSize=(60, 60),
+#                 minSize=(rows//3, cols//3),
                 flags = cv2.CASCADE_SCALE_IMAGE)
             
             if len(faces):
@@ -69,6 +70,9 @@ with picamera.PiCamera() as camera:    # load picamera -> camera
                     x_medium = (x+x+w) // 2
                     y_medium = (y+y+h) // 2
                     break
+            else:
+                position = 90
+                x_medium = x_center
                 
                     #red color
 #             low_red = np.array([161, 155, 84])
@@ -87,10 +91,6 @@ with picamera.PiCamera() as camera:    # load picamera -> camera
             cv2.line(stream.array, (0, y_medium), (800, y_medium), (0, 255, 0), 2)
             cv2.imshow("Video",stream.array) # imshow camera -> color -> window
             #cv2.imshow("mask", red_mask)
-            
-            key = cv2.waitKey(1)
-            if key == 27:
-                break
 #             
             if 0 < position < 180:
                 if x_medium < x_center-30:
@@ -105,6 +105,9 @@ with picamera.PiCamera() as camera:    # load picamera -> camera
 #                             
             servo.setPos(position)
             # picamera required
+            key = cv2.waitKey(1)
+            if key == 27:
+                break
             stream.seek(0)
             stream.truncate()
 
