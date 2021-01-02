@@ -110,7 +110,7 @@ with picamera.PiCamera() as camera:    # load picamera -> camera
             else:
                 x_medium = x_center
                 position = 90
-# #                 
+              
             print(position)   # 디버그 코드
 
             # 포지션 바꿈      
